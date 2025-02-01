@@ -9,7 +9,7 @@ import {
   TouchableWithoutFeedback,
   Platform,
 } from "react-native";
-import { auth, db } from "../../firebase";
+import { auth, db } from "../../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, serverTimestamp, getDoc } from "firebase/firestore";
 import { useRouter } from "expo-router";
