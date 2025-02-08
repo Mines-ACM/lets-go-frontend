@@ -1,9 +1,10 @@
 import { Slot } from "expo-router";
-import { MD3LightTheme, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
+import { lgLightTheme, lgDarkTheme } from "./PaperThemes";
 import AuthProvider from "./AuthProvider";
 
 export default function RootLayout() {
-  const paperTheme = MD3LightTheme;
+  const paperTheme = lgDarkTheme;
 
   return (
     <AuthProvider>
