@@ -8,7 +8,7 @@ import { auth, db } from '../firebase';  // Firebase setup
 import { Redirect, useRouter } from 'expo-router';
 
 export default function Events() {
-  const theme = useTheme(lglightTheme);
+  const theme = useTheme(lgLightTheme);
   
   interface Event {
     id: string;

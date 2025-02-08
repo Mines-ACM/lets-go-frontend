@@ -25,7 +25,10 @@ import {
   TextInput,
   HelperText,
   Icon,
+  PaperProvider,
 } from "react-native-paper";
+
+import { lgLightTheme, lgDarkTheme } from "@/app/PaperThemes";
 
 
 interface LoginErrors {
@@ -76,6 +79,7 @@ export default function Login() {
   };
 
   return (
+  <PaperProvider theme={lgDarkTheme}>
     <KeyboardAvoidingView
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
@@ -121,6 +125,7 @@ export default function Login() {
         </TouchableWithoutFeedback>
       </ScrollView>
     </KeyboardAvoidingView>
+  </PaperProvider>
   );
 }
 

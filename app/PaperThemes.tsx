@@ -9,7 +9,7 @@ export const lgLightTheme = {
     ...MD3LightTheme,
     colors: {
         ...MD3LightTheme.colors,
-        primary: '#FF0000',
+        primary: '#FF00FF',
     }
 }
 
@@ -17,6 +17,6 @@ export const lgDarkTheme = {
     ...MD3DarkTheme,
     colors: {
         ...MD3DarkTheme.colors,
-        primary: '#FF0000',
+        primary: '#FF00FF',
     }
 }
