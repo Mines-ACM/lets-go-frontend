@@ -13,7 +13,7 @@ import {
   Alert,
   ScrollView,
   Platform,
-  KeyboardTypeOptions,
+  KeyboardTypeOptions
 } from "react-native";
 import { useRouter } from "expo-router";
 import styles from "../../styles";
@@ -27,9 +27,6 @@ import {
   Icon,
   PaperProvider,
 } from "react-native-paper";
-
-import { lgLightTheme, lgDarkTheme } from "@/app/PaperThemes";
-
 
 interface LoginErrors {
   [key: string]: string | undefined;
@@ -79,14 +76,13 @@ export default function Login() {
   };
 
   return (
-  <PaperProvider theme={lgDarkTheme}>
     <KeyboardAvoidingView
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
       <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
+        style={[styles.container,{backgroundColor: theme.colors.background}]}
+        contentContainerStyle={[styles.contentContainer,{backgroundColor: theme.colors.background}]}
         keyboardShouldPersistTaps="always"
       >
         <TouchableWithoutFeedback onPress={Platform.OS != "web" ? Keyboard.dismiss : ()=>{}}>
@@ -118,6 +114,7 @@ export default function Login() {
               mode="contained-tonal"
               rippleColor={theme.colors.primary}
               onPress={handleLogin}
+              style={{marginTop: "auto"}}
             >
               Log In
             </Button>
@@ -125,7 +122,6 @@ export default function Login() {
         </TouchableWithoutFeedback>
       </ScrollView>
     </KeyboardAvoidingView>
-  </PaperProvider>
   );
 }
 
