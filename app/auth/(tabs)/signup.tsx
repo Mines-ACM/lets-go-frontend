@@ -9,14 +9,14 @@ import {
   TouchableWithoutFeedback,
   Platform,
 } from "react-native";
-import { auth, db } from "../../firebase";
+import { auth, db } from "../../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, serverTimestamp, getDoc } from "firebase/firestore";
 import { useRouter } from "expo-router";
-import DateTimePicker, {
-  DateTimePickerAndroid,
-  DateTimePickerEvent,
-} from "@react-native-community/datetimepicker";
+// import DateTimePicker, {
+//   DateTimePickerAndroid,
+//   DateTimePickerEvent,
+// } from "@react-native-community/datetimepicker";
 import styles from "../../styles";
 import { LogoHeader } from "./index";
 import { Button, HelperText, TextInput, useTheme } from "react-native-paper";
@@ -179,9 +179,7 @@ const Signup = () => {
                 style={styles.flexGrow}
                 mode="outlined"
                 onPress={() =>
-                  Platform.OS == "web"
-                    ? setBirthday(new Date(0))
-                    : setShowBirthdayPicker(true)
+                  setBirthday(new Date(0))
                 }
               >
                 {birthday ? birthday.toLocaleDateString() : "Date of Birth"}
