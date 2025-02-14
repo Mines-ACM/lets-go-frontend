@@ -7,7 +7,7 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
-  Platform,
+  Platform
 } from "react-native";
 import { auth, db } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -99,7 +99,7 @@ const Signup = () => {
       await setDoc(doc(db, "usernames", username), { uid: user.uid });
 
       console.log("User created successfully:", user.uid);
-      router.push("/main/");
+      router.push("/main");
     } catch (error: any) {
       console.error("Signup error:", error);
       if (error.code === "auth/email-already-in-use") {
@@ -132,8 +132,8 @@ const Signup = () => {
       contentContainerStyle={styles.contentContainer}
     >
       <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
+        style={[styles.container,{backgroundColor: theme.colors.background}]}
+        contentContainerStyle={[styles.contentContainer,{backgroundColor: theme.colors.background}]}
         keyboardShouldPersistTaps="always"
       >
         <TouchableWithoutFeedback
