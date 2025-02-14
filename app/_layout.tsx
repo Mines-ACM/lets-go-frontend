@@ -1,8 +1,8 @@
 import { Slot } from "expo-router";
 import { PaperProvider } from "react-native-paper";
 import { ThemeProvider } from "@react-navigation/native";
-import { combinedLightTheme, combinedDarkTheme } from "./PaperThemes";
-import AuthProvider from "./AuthProvider";
+import { combinedLightTheme, combinedDarkTheme } from "../components/PaperThemes";
+import AuthProvider from "../components/AuthProvider";
 import { useColorScheme } from "react-native";
 
 export default function RootLayout() {

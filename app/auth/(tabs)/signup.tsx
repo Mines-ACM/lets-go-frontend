@@ -17,7 +17,7 @@ import { useRouter } from "expo-router";
 //   DateTimePickerAndroid,
 //   DateTimePickerEvent,
 // } from "@react-native-community/datetimepicker";
-import styles from "../../styles";
+import styles from "../../../components/styles";
 import { LogoHeader } from "./index";
 import { Button, HelperText, TextInput, useTheme } from "react-native-paper";
 import { useAuthState } from "react-firebase-hooks/auth";

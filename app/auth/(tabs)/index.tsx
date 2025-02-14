@@ -15,7 +15,7 @@ import {
   KeyboardTypeOptions
 } from "react-native";
 import { useRouter } from "expo-router";
-import styles from "../../styles";
+import styles from "../../../components/styles";
 
 import {
   useTheme,

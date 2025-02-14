@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { ActivityIndicator, useTheme } from "react-native-paper";
-import styles from "./styles";
+import styles from "../components/styles";
 
 export default function Loading() {
     const theme = useTheme();
