@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, FlatList, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { collection, query, where, onSnapshot, addDoc, Timestamp, doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';  // Firebase setup
+import { useTheme } from 'react-native-paper';
+import {} from '../PaperThemes';
 import { Redirect, useRouter } from 'expo-router';
 
 export default function Events() {

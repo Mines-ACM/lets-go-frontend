@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase";
+import { FirebaseError } from "firebase/app";
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -11,16 +12,10 @@ import {
   Alert,
   ScrollView,
   Platform,
-  KeyboardTypeOptions,
+  KeyboardTypeOptions
 } from "react-native";
 import { useRouter } from "expo-router";
 import styles from "../../styles";
-
-interface LoginErrors {
-  [key: string]: string | undefined;
-  email?: string;
-  password?: string;
-}
 
 import {
   useTheme,
@@ -29,8 +24,15 @@ import {
   TextInput,
   HelperText,
   Icon,
+  PaperProvider,
 } from "react-native-paper";
-import { FirebaseError } from "firebase/app";
+
+interface LoginErrors {
+  [key: string]: string | undefined;
+  email?: string;
+  password?: string;
+}
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -63,7 +65,7 @@ export default function Login() {
         email,
         password
       );
-      router.push("/main/");
+      router.push("/main");
     } catch (error) {
       if (error instanceof FirebaseError)
         handleLoginError(error);
@@ -78,8 +80,8 @@ export default function Login() {
       contentContainerStyle={styles.contentContainer}
     >
       <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
+        style={[styles.container,{backgroundColor: theme.colors.background}]}
+        contentContainerStyle={[styles.contentContainer,{backgroundColor: theme.colors.background}]}
         keyboardShouldPersistTaps="always"
       >
         <TouchableWithoutFeedback onPress={Platform.OS != "web" ? Keyboard.dismiss : ()=>{}}>
@@ -92,6 +94,7 @@ export default function Login() {
                 onChangeText={setEmail}
                 keyboardType="email-address"
                 autoCapitalize="none"
+                autoCorrect={false}
                 mode="outlined"
               />
               <HelperText type="error"> {errors.email}</HelperText>
@@ -104,13 +107,13 @@ export default function Login() {
               password={true}
               errorKey="password"
               errorObj={errors}
-            />
+            /> 
             <Button
               icon="login"
               mode="contained-tonal"
               rippleColor={theme.colors.primary}
               onPress={handleLogin}
-              style={{ marginTop: "auto" }}
+              style={{marginTop: "auto"}}
             >
               Log In
             </Button>
@@ -173,6 +176,7 @@ const TextInputWithLink: React.FC<TextInputWithLinkProps> = ({
         keyboardType={keyboardType}
         autoCapitalize="none"
       />
+      {errorKey in errorObj && <HelperText type="error">{errorObj[errorKey]}</HelperText>}
       <View>
         <TouchableOpacity onPress={onForgot}>
           <Text
@@ -182,7 +186,6 @@ const TextInputWithLink: React.FC<TextInputWithLinkProps> = ({
             Forgot {label}
           </Text>
         </TouchableOpacity>
-        {errorKey in errorObj && <HelperText type="error">{errorObj[errorKey]}</HelperText>}
       </View>
     </View>
   );

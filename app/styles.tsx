@@ -1,4 +1,7 @@
 import { StyleSheet } from "react-native";
+import { useColorScheme } from "react-native";
+
+// Import app theme colors for styling non-paper component
 
 export default StyleSheet.create({
     container: {
@@ -11,7 +14,7 @@ export default StyleSheet.create({
         flex: 1,
         display: "flex",
         padding: 24,
-        gap: 12
+        gap: 12,
     },
     loginTextInputWithLink: {
         display: "flex",
