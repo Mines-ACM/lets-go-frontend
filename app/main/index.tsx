@@ -110,7 +110,7 @@ export default function Events() {
   const renderEvent = ({ item }: { item: Event }) => (
     <TouchableOpacity
       style={styles.eventItem}
-      onPress={() => router.push(`/main/events/${item.id}`)}
+      onPress={() => router.push(`/main/trip/${item.id}`)}
     >
       <Text style={styles.eventTitle}>{item.eventTitle}</Text>
       <Text style={styles.eventText}>Locations: {item.locations.length > 0 ? item.locations.join(', ') : 'No locations set'}</Text>

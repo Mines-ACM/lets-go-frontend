@@ -65,6 +65,7 @@ export default function Login() {
         email,
         password
       );
+
       router.push("/main");
     } catch (error) {
       if (error instanceof FirebaseError)
