@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, FlatList, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { collection, query, where, onSnapshot, addDoc, Timestamp, doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';  // Firebase setup
-import { useTheme } from 'react-native-paper';
-import {} from '../../components/PaperThemes';
+import { useTheme, Card, Chip } from 'react-native-paper';
+import {} from '@/components/PaperThemes';
 import { Redirect, useRouter } from 'expo-router';
 
 export default function Events() {
@@ -107,20 +107,26 @@ export default function Events() {
     }
   };
 
-  const renderEvent = ({ item }: { item: Event }) => (
-    <TouchableOpacity
-      style={styles.eventItem}
-      onPress={() => router.push(`/main/events/${item.id}`)}
-    >
-      <Text style={styles.eventTitle}>{item.eventTitle}</Text>
-      <Text style={styles.eventText}>Locations: {item.locations.length > 0 ? item.locations.join(', ') : 'No locations set'}</Text>
+  const eventCard = ({ item }: { item: Event }) => (
+    <Card onPress={() => router.push(`/main/events/${item.id}`)}>
+      <Card.Title title = {item.eventTitle}/>
+      <Card.Cover source={{ uri: "https://imgur.com/p7XkTEN.jpg"}} style={{borderRadius: 10, backgroundColor: 'none', padding: 0, margin: 0}} resizeMode='cover'/>
+      <Card.Content>
+        <View style={{flexDirection: 'row'}}>
+          {item.createdAt != null && <Chip icon="calendar-clock" style={{marginRight: 10}}>{item.createdAt.toDate().toLocaleDateString()}</Chip>}
+          {item.locations.length > 0 && <Chip icon="map-marker">{item.locations}</Chip>}
+        </View>
+      </Card.Content>
+
+
+      {/*<Text style={styles.eventText}>Locations: {item.locations.length > 0 ? item.locations.join(', ') : 'No locations set'}</Text>
       <Text style={styles.eventText}>{item.description}</Text>
       
       <Text style={styles.eventText}>Date: {item.createdAt.toDate().toLocaleDateString()}</Text>
       <Text style={styles.eventText}>
         Invitees: {item.invitedUsers.map(uid => usernames[uid] || 'Loading...').join(', ')}
-      </Text>
-    </TouchableOpacity>
+  </Text>*/}
+    </Card>
   );
 
   const handleCreateEventPress = () => {
@@ -128,22 +134,19 @@ export default function Events() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Your Events</Text>
+    <View>
       <FlatList
         data={events}
-        renderItem={renderEvent}
+        renderItem={eventCard}
         keyExtractor={(item) => item.id}
         ListEmptyComponent={<Text style={styles.emptyText}>No events found.</Text>}
       />
-
       <TouchableOpacity style={styles.createButton} onPress={handleCreateEventPress}>
         <Text style={styles.createButtonText}>Create New Event</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.createButton} onPress={handleLogOut}>
         <Text style={styles.createButtonText}>Sign Out</Text>
       </TouchableOpacity>
-
     </View>
   );
 }
