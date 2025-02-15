@@ -33,7 +33,7 @@ import {
   Text,
   useTheme,
 } from "react-native-paper";
-import styles from "../../styles";
+import styles from "../../../components/styles";
 
 interface Event {
   id: string;

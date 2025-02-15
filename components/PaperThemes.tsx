@@ -1,10 +1,7 @@
-import * as React from 'react';
-import { useColorScheme } from 'react-native';
 import {
     MD3Theme,
     MD3LightTheme,
     MD3DarkTheme,
-    PaperProvider,
     adaptNavigationTheme
 } from 'react-native-paper';
 import {

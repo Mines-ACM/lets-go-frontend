@@ -4,7 +4,7 @@ import { View, Text, Button, FlatList, TouchableOpacity, TextInput, StyleSheet }
 import { collection, query, where, onSnapshot, addDoc, Timestamp, doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';  // Firebase setup
 import { useTheme } from 'react-native-paper';
-import {} from '../PaperThemes';
+import {} from '../../components/PaperThemes';
 import { Redirect, useRouter } from 'expo-router';
 
 export default function Events() {
@@ -73,6 +73,10 @@ export default function Events() {
     return () => unsubscribe();
   }, []);
 
+  const handleLogOut = async() => {
+    auth.signOut();
+  }
+
   const handleCreateEvent = async () => {
     const user = auth.currentUser;
 
@@ -136,6 +140,10 @@ export default function Events() {
       <TouchableOpacity style={styles.createButton} onPress={handleCreateEventPress}>
         <Text style={styles.createButtonText}>Create New Event</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.createButton} onPress={handleLogOut}>
+        <Text style={styles.createButtonText}>Sign Out</Text>
+      </TouchableOpacity>
+
     </View>
   );
 }

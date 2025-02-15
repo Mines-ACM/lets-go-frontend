@@ -16,7 +16,7 @@ import {
   TextInput,
   useTheme,
 } from "react-native-paper";
-import styles from "../styles";
+import styles from "../../components/styles";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
 import { useRouter } from "expo-router";

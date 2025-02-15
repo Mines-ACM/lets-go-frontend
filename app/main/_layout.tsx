@@ -1,5 +1,5 @@
 import { Redirect, Stack } from "expo-router";
-import { useSession } from "../AuthProvider";
+import { useSession } from "../../components/AuthProvider";
 import Loading from "../loading";
 
 export default function StackLayout() {
