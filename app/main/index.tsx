@@ -1,13 +1,15 @@
 // app/events.tsx
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, FlatList, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
-import { collection, query, where, onSnapshot, addDoc, Timestamp, doc, getDoc } from 'firebase/firestore';
+import { ScrollView, View, Text, Button, FlatList, Platform, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
+import { collection, query, where, onSnapshot, addDoc, Timestamp, doc, getDoc, deleteDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';  // Firebase setup
-import { useTheme, Card, Chip } from 'react-native-paper';
-import {} from '@/components/PaperThemes';
+import { useTheme, Card, Chip, IconButton, FAB } from 'react-native-paper';
 import { Redirect, useRouter } from 'expo-router';
+import CreateEvent from './events/create_event';
 
 export default function Events() {
+
+  var theme = useTheme();
   
   interface Event {
     id: string;
@@ -107,10 +109,24 @@ export default function Events() {
     }
   };
 
+  const deleteEvent = async (EventId: string) => {
+    await deleteDoc(doc(db, "events", EventId));
+  }
+
+  const CreateEventBtn = () => (
+    <FAB
+      label="Create Event"
+      icon="plus"
+      style={styles.createEventBtn}
+      onPress={handleCreateEventPress}
+      size='medium'
+    />
+  );
+
   const eventCard = ({ item }: { item: Event }) => (
-    <Card onPress={() => router.push(`/main/events/${item.id}`)}>
-      <Card.Title title = {item.eventTitle}/>
-      <Card.Cover source={{ uri: "https://imgur.com/p7XkTEN.jpg"}} style={{borderRadius: 10, backgroundColor: 'none', padding: 0, margin: 0}} resizeMode='cover'/>
+    <Card onPress={() => router.push(`/main/events/${item.id}`)} style = {{marginTop: 20, marginLeft: 18, marginRight: 18}}>
+      <Card.Title title = {item.eventTitle} titleStyle={theme.fonts.headlineSmall} subtitle={item.description} subtitleStyle={theme.fonts.labelSmall} right={() => <IconButton icon="delete-outline" onPress={() => deleteEvent(item.id)} iconColor={theme.colors.tertiary}/>}/>
+      <Card.Cover source={{ uri: "https://imgur.com/p7XkTEN.jpg"}} style={styles.eventCardImage} resizeMode='cover'/>
       <Card.Content>
         <View style={{flexDirection: 'row'}}>
           {item.createdAt != null && <Chip icon="calendar-clock" style={{marginRight: 10}}>{item.createdAt.toDate().toLocaleDateString()}</Chip>}
@@ -134,24 +150,22 @@ export default function Events() {
   };
 
   return (
-    <View>
+    <View style={styles.pageContainer}>
       <FlatList
         data={events}
         renderItem={eventCard}
         keyExtractor={(item) => item.id}
         ListEmptyComponent={<Text style={styles.emptyText}>No events found.</Text>}
       />
-      <TouchableOpacity style={styles.createButton} onPress={handleCreateEventPress}>
-        <Text style={styles.createButtonText}>Create New Event</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.createButton} onPress={handleLogOut}>
-        <Text style={styles.createButtonText}>Sign Out</Text>
-      </TouchableOpacity>
+      <CreateEventBtn/>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  pageContainer: {
+    height: "100%"
+  },
   container: {
     flex: 1,
     padding: 20,
@@ -178,12 +192,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 5,
   },
-  eventTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#ffffff', // White text
-    marginBottom: 5,
-  },
   createButton: {
     backgroundColor: '#007AFF',
     paddingVertical: 12,
@@ -205,13 +213,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 3, // Add some depth
   },
-  eventText: {
-    color: '#B0B0B0', // Light gray text
-    marginBottom: 3,
+  eventCardImage: {
+    borderRadius: 10,
+    backgroundColor: 'none',
+    padding: 0,
+    margin: (Platform.OS === 'ios') ? 0 : 15,
+    marginTop: (Platform.OS === 'ios') ? -16 : 0
   },
-  emptyText: {
-    color: '#B0B0B0',
-    textAlign: 'center',
-    marginTop: 20,
-  },
+  createEventBtn: {
+    position: 'absolute',
+    borderRadius: 40,
+    right: 0,
+    bottom: 20,
+    margin: 20,
+  }
 });
