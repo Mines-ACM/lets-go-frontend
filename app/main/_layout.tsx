@@ -1,14 +1,33 @@
 import { Redirect, Stack } from "expo-router";
+import { useState, useEffect, useLayoutEffect } from "react"; 
 import { useSession } from "../../components/AuthProvider";
 import { Avatar } from "react-native-paper";
-import { auth } from "@/firebase.js";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../../firebase";
 import Loading from "../loading";
 import { Pressable } from "react-native";
-import { Header } from "@react-navigation/elements";
 
 export default function StackLayout() {
 
+  
   const {user, loading, error} = useSession();
+
+  const [avatarInitials, updateInitials] = useState("")
+
+  useEffect(() => {
+    if (user != null) {
+      const uid = user.uid;
+
+      const getUserFname = async () => {
+        const userDoc = await getDoc(doc(db, "users", uid));
+        const userFname = userDoc.data()?.firstName || "Unknown Username";
+        updateInitials(userFname[0]);
+      }
+
+      getUserFname();
+    }
+    return;
+  },[user])
 
   if (loading)
     return <Loading />
@@ -16,11 +35,19 @@ export default function StackLayout() {
   if (!user)
     return <Redirect href="/auth/(tabs)" />;
 
-  return (
+  interface userFields {
+    birthday: String,
+    createdAt: Date,
+    email: String,
+    firstName: String,
+    username: String
+  }
+ 
+  return ( 
     <Stack>
       <Stack.Screen name="index" options={{ 
         title: "Home",
-        headerRight: Profile
+        headerRight: () => <Profile avatarInitials={avatarInitials}/>
       }}
       />
       <Stack.Screen name="trip/[id]" options={{ title: "Event Details" }} />
@@ -29,10 +56,13 @@ export default function StackLayout() {
   );
 }
 
-function Profile() {
+interface ProfileInterface {
+  avatarInitials: string,
+}
+function Profile({avatarInitials}: ProfileInterface) {
   return (
-      <Pressable onPressOut={() => {auth.signOut()}}>
-        <Avatar.Text size={36} label="LB"/>
+      <Pressable onPress={() => {auth.signOut()}}>
+        <Avatar.Text size={36} label={avatarInitials}/>
       </Pressable>
   )
 }
