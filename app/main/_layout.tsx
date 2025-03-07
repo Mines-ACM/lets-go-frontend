@@ -31,7 +31,7 @@ export default function StackLayout() {
 
 function Profile() {
   return (
-      <Pressable onPress={() => {auth.signOut()}}>
+      <Pressable onPressOut={() => {auth.signOut()}}>
         <Avatar.Text size={36} label="LB"/>
       </Pressable>
   )
