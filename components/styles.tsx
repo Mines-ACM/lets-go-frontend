@@ -63,7 +63,8 @@ export default StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        gap: 8
+        gap: 8,
+        marginLeft: 'auto',
     },
     eventHeader: {
         gap: 8,

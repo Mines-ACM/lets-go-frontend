@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Text, Button, FlatList, Platform, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { collection, query, where, onSnapshot, addDoc, Timestamp, doc, getDoc, deleteDoc } from 'firebase/firestore';
-import { auth, db } from '../../firebase';  // Firebase setup
+import { auth, db } from '@/firebase';  // Firebase setup
+import {} from '../../components/PaperThemes';
 import { useTheme, Card, Chip, IconButton, FAB } from 'react-native-paper';
 import { Redirect, useRouter } from 'expo-router';
 import CreateEvent from './events/create_event';
@@ -124,7 +125,7 @@ export default function Events() {
   );
 
   const eventCard = ({ item }: { item: Event }) => (
-    <Card onPress={() => router.push(`/main/events/${item.id}`)} style = {{marginTop: 20, marginLeft: 18, marginRight: 18}}>
+    <Card onPress={() => router.push(`/main/trip/${item.id}`)} style = {{marginTop: 20, marginLeft: 18, marginRight: 18}}>
       <Card.Title title = {item.eventTitle} titleStyle={theme.fonts.headlineSmall} subtitle={item.description} subtitleStyle={theme.fonts.labelSmall} right={() => <IconButton icon="delete-outline" onPress={() => deleteEvent(item.id)} iconColor={theme.colors.tertiary}/>}/>
       <Card.Cover source={{ uri: "https://imgur.com/p7XkTEN.jpg"}} style={styles.eventCardImage} resizeMode='cover'/>
       <Card.Content>
@@ -133,15 +134,6 @@ export default function Events() {
           {item.locations.length > 0 && <Chip icon="map-marker">{item.locations}</Chip>}
         </View>
       </Card.Content>
-
-
-      {/*<Text style={styles.eventText}>Locations: {item.locations.length > 0 ? item.locations.join(', ') : 'No locations set'}</Text>
-      <Text style={styles.eventText}>{item.description}</Text>
-      
-      <Text style={styles.eventText}>Date: {item.createdAt.toDate().toLocaleDateString()}</Text>
-      <Text style={styles.eventText}>
-        Invitees: {item.invitedUsers.map(uid => usernames[uid] || 'Loading...').join(', ')}
-  </Text>*/}
     </Card>
   );
 

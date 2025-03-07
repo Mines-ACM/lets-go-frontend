@@ -50,8 +50,8 @@ export default function StackLayout() {
         headerRight: () => <Profile avatarInitials={avatarInitials}/>
       }}
       />
+      <Stack.Screen name="trip/[id]" options={{ title: "Event Details" }} />
       <Stack.Screen name="events/create_event" options={{ title: "Create Event" }} />
-      <Stack.Screen name="events/[id]" options={{ title: "Event Details" }} />
     </Stack>
   );
 }
