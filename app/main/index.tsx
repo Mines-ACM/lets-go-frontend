@@ -155,7 +155,7 @@ export default function Events() {
         data={events}
         renderItem={eventCard}
         keyExtractor={(item) => item.id}
-        ListEmptyComponent={<Text style={styles.emptyText}>No events found.</Text>}
+        ListEmptyComponent={<Text>No events found.</Text>}
       />
       <CreateEventBtn/>
     </View>
