@@ -16,7 +16,8 @@ const lgLightTheme = {
     ...MD3LightTheme,
     colors: {
         ...MD3LightTheme.colors,
-        primary: '#FF00FF',
+        primary: '#AA77FF',
+        tertiary: '#FF6666',
     }
 }
 
@@ -26,6 +27,7 @@ const lgDarkTheme = {
     colors: {
         ...MD3DarkTheme.colors,
         primary: '#DD88FF',
+        tertiary: '#FF6666',
     }
 }
 

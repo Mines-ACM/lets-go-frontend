@@ -1,5 +1,4 @@
-import { StyleSheet } from "react-native";
-import { useColorScheme } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 // Import app theme colors for styling non-paper component
 
@@ -75,5 +74,11 @@ export default StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         gap: 8
+    },
+    eventCardImage: {
+        borderRadius: 10,
+        backgroundColor: 'none',
+        padding: 0,
+        margin: (Platform.OS === 'ios') ? -5 : 15
     }
 });
