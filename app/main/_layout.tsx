@@ -1,13 +1,11 @@
 import { Redirect, Stack } from "expo-router";
-import { useState, useEffect } from "react"; 
+import { useState, useEffect, useLayoutEffect } from "react"; 
 import { useSession } from "../../components/AuthProvider";
 import { Avatar } from "react-native-paper";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase";
 import Loading from "../loading";
 import { Pressable } from "react-native";
-import { Header } from "@react-navigation/elements";
-import AvatarText from "react-native-paper/lib/typescript/components/Avatar/AvatarText";
 
 export default function StackLayout() {
 
@@ -16,24 +14,26 @@ export default function StackLayout() {
 
   const [avatarInitials, updateInitials] = useState("")
 
+  useEffect(() => {
+    if (user != null) {
+      const uid = user.uid;
+
+      const getUserFname = async () => {
+        const userDoc = await getDoc(doc(db, "users", uid));
+        const userFname = userDoc.data()?.firstName || "Unknown Username";
+        updateInitials(userFname[0]);
+      }
+
+      getUserFname();
+    }
+    return;
+  },[user])
+
   if (loading)
     return <Loading />
   
   if (!user)
     return <Redirect href="/auth/(tabs)" />;
-
-  useEffect(() => {
-    const uid = user.uid;
-
-    const getUserFname = async () => {
-      const userDoc = await getDoc(doc(db, "users", uid));
-      const userFname = userDoc.data()?.firstName || "Unknown Username";
-      updateInitials(userFname[0]);
-    }
-
-    return;
-  },[])
-
 
   interface userFields {
     birthday: String,
@@ -62,7 +62,7 @@ interface ProfileInterface {
 function Profile({avatarInitials}: ProfileInterface) {
   return (
       <Pressable onPress={() => {auth.signOut()}}>
-        <Avatar.Text size={36} label="FF"/>
+        <Avatar.Text size={36} label={avatarInitials}/>
       </Pressable>
   )
 }
