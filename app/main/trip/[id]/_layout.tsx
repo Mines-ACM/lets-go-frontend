@@ -12,6 +12,7 @@ import {
   MaterialTopTabNavigationOptions,
 } from "@react-navigation/material-top-tabs";
 import { TabNavigationState, ParamListBase } from '@react-navigation/native';
+import TripFAB from '@/components/TripFAB';
 
 export default function TabLayout() {
   const theme = useTheme();
@@ -65,6 +66,7 @@ export default function TabLayout() {
             }}/>
           </ExpoRouterMaterialTopTabs>
       </TripContext.Provider>
+      <TripFAB />
     </>
   );
 }
