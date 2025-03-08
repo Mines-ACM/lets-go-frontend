@@ -13,14 +13,9 @@ import { auth, db } from "../../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, serverTimestamp, getDoc } from "firebase/firestore";
 import { useRouter } from "expo-router";
-// import DateTimePicker, {
-//   DateTimePickerAndroid,
-//   DateTimePickerEvent,
-// } from "@react-native-community/datetimepicker";
 import styles from "../../../components/styles";
 import { LogoHeader } from "./index";
 import { Button, HelperText, TextInput, useTheme } from "react-native-paper";
-import { useAuthState } from "react-firebase-hooks/auth";
 
 interface Errors {
   firstName?: string;
