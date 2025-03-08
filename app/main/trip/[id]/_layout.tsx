@@ -1,6 +1,6 @@
 import ShareButton from '@/components/ShareButton';
 import { Trip, TripContext } from '@/components/TripProvider';
-import { db } from '@/firebase.js';
+import { db } from '../../../../firebase.js';
 import { Stack, Tabs, useLocalSearchParams } from 'expo-router';
 import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';

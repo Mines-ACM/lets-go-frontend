@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Text, Button, FlatList, Platform, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { collection, query, where, onSnapshot, addDoc, Timestamp, doc, getDoc, deleteDoc } from 'firebase/firestore';
-import { auth, db } from '@/firebase';  // Firebase setup
+import { auth, db } from '../../firebase.js';  // Firebase setup
 import {} from '../../components/PaperThemes';
 import { useTheme, Card, Chip, IconButton, FAB } from 'react-native-paper';
 import { Redirect, useRouter } from 'expo-router';
