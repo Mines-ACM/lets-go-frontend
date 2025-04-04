@@ -46,7 +46,7 @@ export default function TabLayout() {
 
   return (
       <>
-        <Stack.Screen options={{ title: trip?.title ?? "Event Details", headerRight: () => <ShareButton /> }} />
+        <Stack.Screen options={{ title: trip?.title ?? "Event Details", headerRight: () => <ShareButton />, }}/>
         <TripContext.Provider value={trip}>
           <ExpoRouterMaterialTopTabs tabBarPosition='bottom'>
             <ExpoRouterMaterialTopTabs.Screen name='index' options={{

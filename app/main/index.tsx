@@ -5,7 +5,7 @@ import { collection, query, where, onSnapshot, addDoc, Timestamp, doc, getDoc, d
 import { auth, db } from '../../firebase.js';  // Firebase setup
 import {} from '../../components/PaperThemes';
 import { useTheme, Card, Chip, IconButton, FAB } from 'react-native-paper';
-import { Redirect, useRouter } from 'expo-router';
+import { Redirect, Stack, useRouter } from 'expo-router';
 import CreateEvent from './events/create_event';
 
 export default function Events() {
