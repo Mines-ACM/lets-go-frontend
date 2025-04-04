@@ -5,7 +5,8 @@ import { Avatar } from "react-native-paper";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase";
 import Loading from "../loading";
-import { Pressable } from "react-native";
+import { Pressable, View } from "react-native";
+import { useTheme } from "@react-navigation/native";
 
 export default function StackLayout() {
 
@@ -13,6 +14,7 @@ export default function StackLayout() {
   const {user, loading, error} = useSession();
 
   const [avatarInitials, updateInitials] = useState("")
+  const theme = useTheme();
 
   useEffect(() => {
     if (user != null) {
@@ -44,7 +46,8 @@ export default function StackLayout() {
   }
  
   return ( 
-    <Stack>
+    <View style={{flex: 1, backgroundColor: theme.colors.background}}>
+      <Stack screenOptions={{statusBarBackgroundColor: theme.colors.card, navigationBarColor: theme.colors.card}}>
       <Stack.Screen name="index" options={{ 
         title: "Home",
         headerRight: () => <Profile avatarInitials={avatarInitials}/>
@@ -53,6 +56,7 @@ export default function StackLayout() {
       <Stack.Screen name="trip/[id]" options={{ title: "Event Details" }} />
       <Stack.Screen name="events/create_event" options={{ title: "Create Event" }} />
     </Stack>
+    </View>
   );
 }
 
